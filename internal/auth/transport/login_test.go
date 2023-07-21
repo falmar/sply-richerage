@@ -1,6 +1,7 @@
 package transport
 
 import (
+	"bytes"
 	"context"
 	"github.com/falmar/richerage-api/internal/auth/endpoint"
 	"net/http"
@@ -36,8 +37,7 @@ func TestLogin_RequestDecoder(t *testing.T) {
 }
 
 func TestLogin_RequestDecoder_Empty(t *testing.T) {
-	testBody := ``
-	r, err := http.NewRequest("POST", "/login", strings.NewReader(testBody))
+	r, err := http.NewRequest("POST", "/login", bytes.NewReader([]byte{}))
 	if err != nil {
 		t.Fatal(err)
 	}
