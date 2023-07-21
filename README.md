@@ -82,3 +82,17 @@ $ curl -X GET -H "Host: localhost:8080" -H "Authorization: Basic xxx" http://loc
 - Additional helper/shared code is in `./internal/pkg`
 - The cli entrypoint is in `./cmd/main.go`
 - Http command is in `./cmd/http/http.go`
+
+
+#### data
+
+About the code in `./internal/storage` the "seeded storage" its a deterministic `*rand.Rand` that uses the string hashes of the usernames/ticker/symbol to generate the data on the fly and provide consistent data across server restarts.
+
+
+The tickers are variable for each user given its username is the seed. so users may see "different" *amount* of tickers but the data of the ticker itself is the same across all users.  
+
+The time series of the tickers is seeded by the symbol, so it is also consistent across server restarts, the *amount* of series and the dates+price are also deterministic but the data is different for each symbol independently of the user. 
+
+This storage is an interface like everything else in the codebase to allow easy plug-and-play of different storage backends. May it be database, object storage, filesystem etc. 
+
+I do apologize in advance if I misunderstood the data generation, once I receive confirmation about it, it will be updated, given it is just an interface and simply plug-in the new storage implementation, it should have little to none impact on the rest of the codebase
