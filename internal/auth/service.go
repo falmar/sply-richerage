@@ -20,7 +20,7 @@ type Config struct {
 }
 
 func New(cfg *Config) (Service, error) {
-	if cfg == nil {
+	if cfg == nil || cfg.Hasher == nil {
 		return nil, ErrInvalidConfig
 	}
 
