@@ -15,18 +15,22 @@ var _ Hasher = (*hmacHasher)(nil)
 type ConfigHMAC struct {
 	Secret []byte
 	TTL    time.Duration
+
+	CheckExpired bool
 }
 
 func NewHMAC(cfg *ConfigHMAC) Hasher {
 	return &hmacHasher{
-		secret: cfg.Secret,
-		ttl:    cfg.TTL,
+		secret:       cfg.Secret,
+		ttl:          cfg.TTL,
+		checkExpired: cfg.CheckExpired,
 	}
 }
 
 type hmacHasher struct {
-	secret []byte
-	ttl    time.Duration
+	secret       []byte
+	ttl          time.Duration
+	checkExpired bool
 }
 
 func (m *hmacHasher) GenerateToken(_ context.Context, data []byte) ([]byte, error) {
@@ -92,13 +96,13 @@ func (m *hmacHasher) ValidateToken(_ context.Context, token []byte) ([]byte, err
 	// check date
 	date, err := strconv.ParseInt(string(parts[2]), 10, 64)
 
-	now := time.Now().UTC().Unix()
-
 	if err != nil {
 		return nil, &ErrInvalidToken{
 			Message: "invalid date",
 		}
-	} else if now > date {
+	}
+
+	if m.checkExpired && time.Now().UTC().Unix() > date {
 		return nil, &ErrExpiredToken{}
 	}
 

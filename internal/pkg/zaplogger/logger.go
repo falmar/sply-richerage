@@ -24,5 +24,5 @@ func New(debug bool) *zap.Logger {
 
 	logger, _ := lConfig.Build()
 
-	return logger
+	return logger.WithOptions(zap.AddStacktrace(zap.PanicLevel))
 }

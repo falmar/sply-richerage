@@ -1,5 +1,13 @@
 package kit
 
+type HttpErrorBody struct {
+	Code    string `json:"code"`
+	Message string `json:"message"`
+
+	// Optionals
+	Params map[string]string `json:"params,omitempty"`
+}
+
 type HttpError interface {
 	HttpCode() int
 }

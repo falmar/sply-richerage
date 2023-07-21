@@ -12,8 +12,9 @@ func TestHmacHasher(t *testing.T) {
 	ctx := context.Background()
 
 	hasher := NewHMAC(&ConfigHMAC{
-		Secret: []byte("secret"),
-		TTL:    1 * time.Second,
+		Secret:       []byte("secret"),
+		TTL:          1 * time.Second,
+		CheckExpired: true,
 	})
 
 	data := []byte("data")
@@ -44,8 +45,9 @@ func TestHmacHasher(t *testing.T) {
 func TestHmacHasher_Invalid(t *testing.T) {
 	ctx := context.Background()
 	hasher := NewHMAC(&ConfigHMAC{
-		Secret: []byte("secret"),
-		TTL:    1 * time.Second,
+		Secret:       []byte("secret"),
+		TTL:          1 * time.Second,
+		CheckExpired: true,
 	})
 
 	var data []byte
@@ -80,8 +82,9 @@ func TestHmacHasher_Invalid(t *testing.T) {
 func TestHmacHasher_Expired(t *testing.T) {
 	ctx := context.Background()
 	hasher := NewHMAC(&ConfigHMAC{
-		Secret: []byte("secret"),
-		TTL:    1 * time.Nanosecond,
+		Secret:       []byte("secret"),
+		TTL:          1 * time.Nanosecond,
+		CheckExpired: true,
 	})
 
 	token, err := hasher.GenerateToken(ctx, []byte("data"))
