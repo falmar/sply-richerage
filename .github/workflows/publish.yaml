@@ -1,4 +1,4 @@
-name: shopify_expert_server
+name: publish
 on:
   push:
     branches:
