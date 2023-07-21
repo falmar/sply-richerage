@@ -26,7 +26,7 @@ func Cmd(_ context.Context, config *bootstrap.Config) *cobra.Command {
 			loggerHandler := &kit.LoggerHandler{
 				Logger: config.Logger,
 			}
-			transportHandler := &kit.ErrorHandler{
+			errorHandler := &kit.ErrorHandler{
 				Logger: config.Logger,
 			}
 
@@ -35,8 +35,8 @@ func Cmd(_ context.Context, config *bootstrap.Config) *cobra.Command {
 				loginEndpoint,
 				authtransport.LoginRequestDecoder,
 				authtransport.LoginResponseEncoder,
-				kithttp.ServerErrorEncoder(transportHandler.ErrorEncoder),
-				kithttp.ServerErrorHandler(transportHandler),
+				kithttp.ServerErrorEncoder(errorHandler.ErrorEncoder),
+				kithttp.ServerErrorHandler(errorHandler),
 				kithttp.ServerBefore(loggerHandler.Before),
 				kithttp.ServerAfter(loggerHandler.After),
 			))
@@ -48,8 +48,8 @@ func Cmd(_ context.Context, config *bootstrap.Config) *cobra.Command {
 				tickerstransport.TickersRequestDecoder,
 				tickerstransport.TickersResponseEncoder,
 				kithttp.ServerBefore(tickerstransport.TokenDecoder),
-				kithttp.ServerErrorEncoder(transportHandler.ErrorEncoder),
-				kithttp.ServerErrorHandler(transportHandler),
+				kithttp.ServerErrorEncoder(errorHandler.ErrorEncoder),
+				kithttp.ServerErrorHandler(errorHandler),
 				kithttp.ServerBefore(loggerHandler.Before),
 				kithttp.ServerAfter(loggerHandler.After),
 			))
@@ -61,8 +61,8 @@ func Cmd(_ context.Context, config *bootstrap.Config) *cobra.Command {
 				tickerstransport.TickerHistoryRequestDecoder,
 				tickerstransport.TickerHistoryResponseEncoder,
 				kithttp.ServerBefore(tickerstransport.TokenDecoder),
-				kithttp.ServerErrorEncoder(transportHandler.ErrorEncoder),
-				kithttp.ServerErrorHandler(transportHandler),
+				kithttp.ServerErrorEncoder(errorHandler.ErrorEncoder),
+				kithttp.ServerErrorHandler(errorHandler),
 				kithttp.ServerBefore(loggerHandler.Before),
 				kithttp.ServerAfter(loggerHandler.After),
 			))

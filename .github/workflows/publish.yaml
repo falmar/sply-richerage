@@ -1,8 +1,8 @@
-name: shopify_expert_server
+name: publish
 on:
   push:
     branches:
-      - no-branch
+      - master
 
 env:
   REGISTRY: docker.io
@@ -11,7 +11,7 @@ env:
   DOCKER_IMAGE_TAG: "http"
 
 jobs:
-  image:
+  docker:
     env:
       PLATFORMS: linux/amd64,linux/arm64
     runs-on: ubuntu-latest
