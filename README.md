@@ -33,6 +33,10 @@ To retrieve the auth token, you must first login with ANY username and password.
 $ curl -X POST -H "Host: localhost:8080" -H "Content-Type: application/json" -d '{"username": "anonymous", "password": "anonymous"}' http://localhost:8080/login
 ```
 
+Long lived test token:
+> `DbjHLiUBzrLBrYKqnC8HOHgnNhOGgl+iZKakolvRgEM=.YW5vdGhlcg==.1708069778`
+
+
 ### GET /tickers
 ```
 GET /tickers HTTP/1.1
@@ -60,8 +64,19 @@ $ curl -X GET -H "Host: localhost:8080" -H "Authorization: Basic xxx" http://loc
 ```
 
 
+## Summary
 
-> Test Token: `DbjHLiUBzrLBrYKqnC8HOHgnNhOGgl+iZKakolvRgEM=.YW5vdGhlcg==.1708069778`
+#### dependencies:
+- For the project structure used https://github.com/golang-standards/project-layout
+- Used [go-kit/kit](https://gokit.io/) for the writing the tickers/login services it lays out a good foundation for writing microservices in go. with the use of 3 layers (transport, endpoint, service) it makes it easy to add new transports (grpc, http, etc).
+- Used [chi](https://github.com/go-chi/chi) as the http router, it's a lightweight router that has a lot of features.
+- Used [Zap Logger](https://github.com/uber-go/zap) for logging, almost no logging is done but it's there.
+- Used [Cobra](https://github.com/spf13/cobra)/[Viper](https://github.com/spf13/viper) for CLI/Configuration
+
+#### code structure:
+- The main logic for tickers lives in `./internal/tickers`
+- The main logic for login lives in `./internal/login`
+- Additional helper/shared code is in `./internal/pkg`
 
 
 
