@@ -1,0 +1,41 @@
+name: "Build"
+
+on:
+  pull_request:
+    branches:
+      - master
+  workflow_call:
+    secrets:
+      GH_ACCESS_TOKEN:
+        required: true
+    inputs:
+      upload:
+        required: true
+        type: boolean
+
+jobs:
+  build:
+    runs-on: ubuntu-22.04
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Set up Go
+        uses: actions/setup-go@v4
+        with:
+          go-version: 1.19
+        run: |
+          go version
+          go mod download
+
+      - name: Test
+        run: |
+          go test -tags=test ./internal/... -v
+
+      - name: Build
+        env:
+          GOOS: linux
+          GOARCH: amd64
+          CGO_ENABLED: 0
+        run: |
+          go build -o ./bin/http ./cmd
