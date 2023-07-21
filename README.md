@@ -88,6 +88,7 @@ $ curl -X GET -H "Host: localhost:8080" -H "Authorization: Basic xxx" http://loc
 - Additional helper/shared code is in `./internal/pkg`
 - The cli entrypoint is in `./cmd/main.go`
 - Http command is in `./cmd/http/http.go`
+- Http server bootstrap and automation tests are in `./cmd/http/server.go`
 
 
 #### data
