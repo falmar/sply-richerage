@@ -8,7 +8,13 @@
 >
 > — AI
 
-## Run Docker
+## Run Locally
+
+```bash
+$ go run ./cmd http -p 8080 -d
+```
+
+## Run in Docker
 
 ```bash
 $ docker run --rm -it -p 8080:80 docker.io/falmar/sply:http -p 80 -d
