@@ -1,5 +1,8 @@
 # Tickers API
 
+[![Build](https://github.com/falmar/sply-richerage/actions/workflows/build.yaml/badge.svg?branch=master)](https://github.com/falmar/sply-richerage/actions/workflows/build.yaml)
+[![Publish](https://github.com/falmar/sply-richerage/actions/workflows/publish.yaml/badge.svg?branch=master)](https://github.com/falmar/sply-richerage/actions/workflows/publish.yaml)
+
 > "Why did they call it 'richerage' instead of 'brokerage'?
 > Because after you start investing, you're no longer broke, you're getting rich!"
 >
