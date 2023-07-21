@@ -12,14 +12,14 @@ type LoggerHandler struct {
 
 func (h *LoggerHandler) Before(ctx context.Context, req *http.Request) context.Context {
 	reqID := req.Header.Get("x-request-id")
-	h.Logger.
+	logger := h.Logger.
 		With(zap.String("request_id", reqID)).
 		With(zap.String("path", req.URL.Path)).
 		With(zap.String("method", req.Method))
 
 	ctx = context.WithValue(ctx, "request_id", reqID)
 
-	h.Logger.Info("http: request received")
+	logger.Info("http: request received")
 
 	return ctx
 }
