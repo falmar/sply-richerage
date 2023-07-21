@@ -23,6 +23,7 @@ func main() {
 
 	// set cobra flags
 	v := viper.New()
+	v.SetDefault("token.expired", true)
 	bindFlags(v)
 
 	err := rootCmd.ParseFlags(os.Args[1:])

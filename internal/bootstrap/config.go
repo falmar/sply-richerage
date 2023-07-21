@@ -41,7 +41,8 @@ func New(_ context.Context, v *viper.Viper, logger *zap.Logger) (*Config, error)
 			Secret: sk,
 
 			// 1 week
-			TTL: time.Hour * 24 * 7 * 30,
+			TTL:          time.Hour * 24 * 7 * 30,
+			CheckExpired: v.GetBool("token.expired"),
 		}),
 	})
 

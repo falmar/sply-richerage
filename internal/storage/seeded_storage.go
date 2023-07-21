@@ -97,10 +97,16 @@ func (s *seededStorage) GetHistory(_ context.Context, symbol string, before time
 		// from today, down to 90 days ago
 
 		var historyDate time.Time
+		var try int
 
 	dateLoop:
 		for {
-			historyDate = date.Add(-time.Hour * 24 * time.Duration(rnd.Intn(90)+1))
+			if try >= 5 {
+				break
+			}
+
+			try++
+			historyDate = date.Add(-time.Hour * 24 * time.Duration(rnd.Intn(100)+1))
 
 			// check if the date is already in the history
 			for _, v := range history {
