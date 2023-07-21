@@ -74,9 +74,8 @@ $ curl -X GET -H "Host: localhost:8080" -H "Authorization: Basic xxx" http://loc
 - Used [Cobra](https://github.com/spf13/cobra)/[Viper](https://github.com/spf13/viper) for CLI/Configuration
 
 #### code structure:
-- The main logic for tickers lives in `./internal/tickers`
-- The main logic for login lives in `./internal/login`
+- The main logic for tickers is in `./internal/tickers`
+- The main logic for login is in `./internal/login`
 - Additional helper/shared code is in `./internal/pkg`
-
-
-
+- The cli entrypoint is in `./cmd/main.go`
+- Http command is in `./cmd/http/http.go`
